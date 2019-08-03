@@ -1,6 +1,15 @@
 import Monster from '../libs/monster.js'
 
 
+let score_left = 1000
+let score_right = 1000
+let score_center = 1000
+
+let blue_button_on, blue_button_off, green_button_on, green_button_off, red_button_on, red_button_off;
+let time = 0
+
+let plusPoint = null
+
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -15,7 +24,12 @@ export default class GameScene extends Phaser.Scene {
   create () {
 
 
+    setInterval(() => {
+      time = time + 1
+    }, 1000)
+
     this.valor = 100
+
 
     //images to add
     const background = this.add.image(0, 0, 'background')
@@ -34,12 +48,14 @@ export default class GameScene extends Phaser.Scene {
     const bombilla_off_1 = this.add.image(0, 0, 'bombilla_off')
     const bombilla_off_2 = this.add.image(0, 0, 'bombilla_off')
     const bombilla_off_3 = this.add.image(0, 0, 'bombilla_off') */
-    const blue_button_on = this.add.image(0, 0, 'blue_button_on').setInteractive()
-    const blue_button_off = this.add.image(0, 0, 'blue_button_off').setInteractive()
-    const green_button_on = this.add.image(0, 0, 'green_button_on').setInteractive()
-    const green_button_off = this.add.image(0, 0, 'green_button_off').setInteractive()
-    const red_button_on = this.add.image(0, 0, 'red_button_on').setInteractive()
-    const red_button_off = this.add.image(0, 0, 'red_button_off').setInteractive()
+    blue_button_on = this.add.image(0, 0, 'blue_button_on').setInteractive()
+    blue_button_on.setVisible(false)
+    blue_button_off = this.add.image(0, 0, 'blue_button_off').setInteractive()
+    blue_button_off.visible = true
+    green_button_on = this.add.image(0, 0, 'green_button_on').setInteractive()
+    green_button_off = this.add.image(0, 0, 'green_button_off').setInteractive()
+    red_button_on = this.add.image(0, 0, 'red_button_on').setInteractive()
+    red_button_off = this.add.image(0, 0, 'red_button_off').setInteractive()
     const map_left = this.add.image(0, 0, 'map_left')
     const map_center = this.add.image(0, 0, 'map_center')
     const map_right = this.add.image(0, 0, 'map_right')
@@ -133,14 +149,14 @@ export default class GameScene extends Phaser.Scene {
 
     /* bombilla_off_2.visible = false */
 
-    blue_button_on.visible = false
+/*     blue_button_on.visible = false
     green_button_on.visible = false
-    red_button_on.visible = false
+    red_button_on.visible = false */
 
     map_left.visible = false
     map_center.visible = false
     map_right.visible = false
-    
+
 /*     bombilla_off_1.visible = false
     bombilla_off_2.visible = false
     bombilla_off_3.visible = false
@@ -153,9 +169,13 @@ export default class GameScene extends Phaser.Scene {
 
     blue_button_on.on('pointerdown', function () {
 /*       bombilla_off_1.visible = true */
+      score_left = score_left - 1
       map_left.visible = false
       blue_button_off.visible = true
       blue_button_on.visible = false
+
+      plusPoint = null
+
 
     })
 
@@ -164,12 +184,16 @@ export default class GameScene extends Phaser.Scene {
       bombilla_off_2.visible = true
       bombilla_off_3.visible = true */
 
+      score_left = score_left + 1
       map_left.visible = true
       map_center.visible = false
       map_right.visible = false
 
       blue_button_off.visible = false
       blue_button_on.visible = true
+
+      plusPoint = 'blue'
+
       red_button_off.visible = true
       red_button_on.visible = false
       green_button_off.visible = true
@@ -180,6 +204,8 @@ export default class GameScene extends Phaser.Scene {
 /*       bombilla_off_2.visible = false //se prende la bombilla y se apagan las otras dos
       bombilla_off_1.visible = true
       bombilla_off_3.visible = true */
+
+      plusPoint = 'green'
 
       map_left.visible = false
       map_center.visible = true
@@ -195,6 +221,8 @@ export default class GameScene extends Phaser.Scene {
 
     green_button_on.on('pointerdown', () => {
 /*       bombilla_off_2.visible = true */
+
+      plusPoint = null
       map_center.visible = false
       green_button_off.visible = true
       green_button_on.visible = false
@@ -204,7 +232,7 @@ export default class GameScene extends Phaser.Scene {
 /*       bombilla_off_3.visible = false
       bombilla_off_1.visible = true
       bombilla_off_2.visible = true */
-
+      plusPoint = 'red'
       map_left.visible = false
       map_center.visible = false
       map_right.visible = true
@@ -218,19 +246,42 @@ export default class GameScene extends Phaser.Scene {
     })
 
     red_button_on.on('pointerdown', () => {
-/*       bombilla_off_3.visible = true */
+      plusPoint = null
       map_right.visible = false
       red_button_off.visible = true
       red_button_on.visible = false
     })
 
+    //descuenta regularmente el puntaje a todos
+    setInterval(() => {
+      score_left = score_left -1
+      score_right = score_right - 1
+      score_center = score_center - 1
+
+      this.checkScore()
+
+      console.log(score_left, score_center, score_right)
+    }, 5000)
+
+
+
 
   }
   update () {
-/*     this.monster.sprite.anims.play('monster-idle', true) */
-    /* this.monster.update() */
 
+  }
 
+  //Falta agregar algo para que los puntos SUBAN una vez lleven mucho tiempo las luces prendidas en un area. Un bono
+  checkScore () {
+    if (plusPoint === 'blue' && time % 5 === 0) {
+        score_left = score_left + 1
+    } else if (plusPoint === 'green' && time % 5 === 0) {
+      score_center = score_center + 1
+    } else if (plusPoint === 'red' && time % 5 === 0) {
+      score_right = score_right + 1
+    } else {
+      console.log('todos son luz')
+    }
   }
 
 }
