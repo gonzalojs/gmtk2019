@@ -91,6 +91,13 @@ export default class PreloadScene extends Phaser.Scene {
     //ampolletas
     this.load.image('bombilla_on', 'src/assets/images/bombilla_prendida.png')
     this.load.image('bombilla_off', 'src/assets/images/bombilla_apagada.png')
+    //botones
+    this.load.image('blue_button_on', 'src/assets/images/blue_button_on.png')
+    this.load.image('blue_button_off', 'src/assets/images/blue_button_off.png')
+    this.load.image('green_button_on', 'src/assets/images/green_button_on.png')
+    this.load.image('green_button_off', 'src/assets/images/green_button_off.png')
+    this.load.image('red_button_on', 'src/assets/images/red_button_on.png')
+    this.load.image('red_button_off', 'src/assets/images/red_button_off.png')
 
 
 /*     for (let i = 0; i < 500; i++) {

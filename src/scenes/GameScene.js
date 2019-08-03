@@ -29,6 +29,12 @@ export default class GameScene extends Phaser.Scene {
     const bombilla_off_1 = this.add.image(0, 0, 'bombilla_off')
     const bombilla_off_2 = this.add.image(0, 0, 'bombilla_off')
     const bombilla_off_3 = this.add.image(0, 0, 'bombilla_off')
+    const blue_button_on = this.add.image(0, 0, 'blue_button_on').setInteractive()
+    const blue_button_off = this.add.image(0, 0, 'blue_button_off').setInteractive()
+    const green_button_on = this.add.image(0, 0, 'green_button_on').setInteractive()
+    const green_button_off = this.add.image(0, 0, 'green_button_off').setInteractive()
+    const red_button_on = this.add.image(0, 0, 'red_button_on').setInteractive()
+    const red_button_off = this.add.image(0, 0, 'red_button_off').setInteractive()
 
     //backgrpund
     const TODO = this.add.zone(400, 300, 800, 600)//zone back
@@ -45,6 +51,11 @@ export default class GameScene extends Phaser.Scene {
     const BU_ONE = this.add.zone(0, 0, 300, 100)
     const BU_TWO = this.add.zone(0, 0, 300, 100)
     const BU_THREE = this.add.zone(0, 0, 300, 100)
+
+    //micro zona bottones
+    const TOP_BU = this.add.zone(0, 0, 100, 100)
+    const MID_BU = this.add.zone(0, 0, 100, 100)
+    const BOT_BU = this.add.zone(0, 0, 100, 100)
 
     //bombillas zone
     const BOMBILLA_UNO = this.add.zone(0, 0, 150, 300)
@@ -68,6 +79,10 @@ export default class GameScene extends Phaser.Scene {
     Phaser.Display.Align.In.TopCenter(BU_ONE, PANEL)
     Phaser.Display.Align.In.Center(BU_TWO, PANEL)
     Phaser.Display.Align.In.BottomCenter(BU_THREE, PANEL)
+    //botones to botones
+    Phaser.Display.Align.In.LeftCenter(TOP_BU, BU_ONE)
+    Phaser.Display.Align.In.LeftCenter(MID_BU, BU_TWO)
+    Phaser.Display.Align.In.LeftCenter(BOT_BU, BU_THREE)
 
     //bombillas to MAP. por defecto solo apagadas
     Phaser.Display.Align.In.LeftCenter(BOMBILLA_UNO, MAP)
@@ -91,18 +106,87 @@ export default class GameScene extends Phaser.Scene {
     Phaser.Display.Align.In.Center(bombilla_on_1, BOMBILLA_UNO)
     Phaser.Display.Align.In.Center(bombilla_on_2, BOMBILLA_DOS)
     Phaser.Display.Align.In.Center(bombilla_on_3, BOMBILLA_TRES)
+    //tres botones
+    Phaser.Display.Align.In.Center(blue_button_off, TOP_BU)
+    Phaser.Display.Align.In.Center(blue_button_on, TOP_BU)
+    Phaser.Display.Align.In.Center(green_button_off, MID_BU)
+    Phaser.Display.Align.In.Center(green_button_on, MID_BU)
+    Phaser.Display.Align.In.Center(red_button_off, BOT_BU)
+    Phaser.Display.Align.In.Center(red_button_on, BOT_BU)
 
 
     //puedo hacer que las overlays sean visibles o no solo con booleans
 
+
     /* bombilla_off_2.visible = false */
 
+    blue_button_on.visible = false
+    green_button_on.visible = false
+    red_button_on.visible = false
+
+
+    blue_button_on.on('pointerdown', function () {
+      bombilla_off_1.visible = true
+      blue_button_off.visible = true
+      blue_button_on.visible = false
+
+    })
+
+    blue_button_off.on('pointerdown', function () {
+      bombilla_off_1.visible = false
+      bombilla_off_2.visible = true
+      bombilla_off_3.visible = true
+      blue_button_off.visible = false
+      blue_button_on.visible = true
+      red_button_off.visible = true
+      red_button_on.visible = false
+      green_button_off.visible = true
+      green_button_on.visible = false
+    })
+
+    green_button_off.on('pointerdown', () => {
+      bombilla_off_2.visible = false //se prende la bombilla y se apagan las otras dos
+      bombilla_off_1.visible = true
+      bombilla_off_3.visible = true
+      blue_button_off.visible = true
+      blue_button_on.visible = false
+      green_button_off.visible = false
+      green_button_on.visible = true
+      red_button_off.visible = true
+      red_button_on.visible = false
+    })
+
+    green_button_on.on('pointerdown', () => {
+      bombilla_off_2.visible = true
+      green_button_off.visible = true
+      green_button_on.visible = false
+    })
+
+    red_button_off.on('pointerdown', () => {
+      bombilla_off_3.visible = false
+      bombilla_off_1.visible = true
+      bombilla_off_2.visible = true
+      blue_button_off.visible = true
+      blue_button_on.visible = false
+      green_button_off.visible = true
+      green_button_on.visible = false
+      red_button_off.visible = false
+      red_button_on.visible = true
+    })
+
+    red_button_on.on('pointerdown', () => {
+      bombilla_off_3.visible = true
+      red_button_off.visible = true
+      red_button_on.visible = false
+    })
 
 
   }
   update () {
 /*     this.monster.sprite.anims.play('monster-idle', true) */
     /* this.monster.update() */
+
+
 
   }
 
