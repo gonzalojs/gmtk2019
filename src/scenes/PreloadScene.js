@@ -82,7 +82,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('bottom', 'src/assets/images/bottom.png')
     this.load.image('panel', 'src/assets/images/panel.png')
     this.load.image('compu', 'src/assets/images/compu.png')
-    this.load.image('map', 'src/assets/images/map.png')
+    this.load.image('map', 'src/assets/images/map2.png')
     this.load.image('desk', 'src/assets/images/desk.png')
     //panel buttons
     this.load.image('bu_one', 'src/assets/images/panel1.png')
@@ -98,6 +98,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('green_button_off', 'src/assets/images/green_button_off.png')
     this.load.image('red_button_on', 'src/assets/images/red_button_on.png')
     this.load.image('red_button_off', 'src/assets/images/red_button_off.png')
+
+    //preload
+    this.load.image('map_left', 'src/assets/images/map_home.png')
+    this.load.image('map_center', 'src/assets/images/map_center.png')
+    this.load.image('map_right', 'src/assets/images/map_rich.png')
 
 
 /*     for (let i = 0; i < 500; i++) {

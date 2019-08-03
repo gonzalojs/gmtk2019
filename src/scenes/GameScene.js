@@ -1,5 +1,7 @@
 import Monster from '../libs/monster.js'
 
+
+
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super({
@@ -12,6 +14,9 @@ export default class GameScene extends Phaser.Scene {
   }
   create () {
 
+
+    this.valor = 100
+
     //images to add
     const background = this.add.image(0, 0, 'background')
     const top = this.add.image(0, 0, 'top')
@@ -23,18 +28,21 @@ export default class GameScene extends Phaser.Scene {
     const bu_one = this.add.image(0, 0, 'bu_one')
     const bu_two = this.add.image(0, 0, 'bu_two')
     const bu_three = this.add.image(0, 0, 'bu_three')
-    const bombilla_on_1 = this.add.image(0, 0, 'bombilla_on')
+/*     const bombilla_on_1 = this.add.image(0, 0, 'bombilla_on')
     const bombilla_on_2 = this.add.image(0, 0, 'bombilla_on')
     const bombilla_on_3 = this.add.image(0, 0, 'bombilla_on')
     const bombilla_off_1 = this.add.image(0, 0, 'bombilla_off')
     const bombilla_off_2 = this.add.image(0, 0, 'bombilla_off')
-    const bombilla_off_3 = this.add.image(0, 0, 'bombilla_off')
+    const bombilla_off_3 = this.add.image(0, 0, 'bombilla_off') */
     const blue_button_on = this.add.image(0, 0, 'blue_button_on').setInteractive()
     const blue_button_off = this.add.image(0, 0, 'blue_button_off').setInteractive()
     const green_button_on = this.add.image(0, 0, 'green_button_on').setInteractive()
     const green_button_off = this.add.image(0, 0, 'green_button_off').setInteractive()
     const red_button_on = this.add.image(0, 0, 'red_button_on').setInteractive()
     const red_button_off = this.add.image(0, 0, 'red_button_off').setInteractive()
+    const map_left = this.add.image(0, 0, 'map_left')
+    const map_center = this.add.image(0, 0, 'map_center')
+    const map_right = this.add.image(0, 0, 'map_right')
 
     //backgrpund
     const TODO = this.add.zone(400, 300, 800, 600)//zone back
@@ -89,6 +97,10 @@ export default class GameScene extends Phaser.Scene {
     Phaser.Display.Align.In.Center(BOMBILLA_DOS, MAP)
     Phaser.Display.Align.In.RightCenter(BOMBILLA_TRES, MAP)
 
+    Phaser.Display.Align.In.LeftCenter(map_left, MAP)
+    Phaser.Display.Align.In.Center(map_center, MAP)
+    Phaser.Display.Align.In.RightCenter(map_right, MAP)
+
 
     //add images
     Phaser.Display.Align.In.TopCenter(top, TOP)
@@ -100,12 +112,13 @@ export default class GameScene extends Phaser.Scene {
     Phaser.Display.Align.In.Center(bu_one, BU_ONE)
     Phaser.Display.Align.In.Center(bu_two, BU_TWO)
     Phaser.Display.Align.In.Center(bu_three, BU_THREE)
-    Phaser.Display.Align.In.Center(bombilla_off_1, BOMBILLA_UNO)
+/*     Phaser.Display.Align.In.Center(bombilla_off_1, BOMBILLA_UNO)
     Phaser.Display.Align.In.Center(bombilla_off_2, BOMBILLA_DOS)
     Phaser.Display.Align.In.Center(bombilla_off_3, BOMBILLA_TRES)
     Phaser.Display.Align.In.Center(bombilla_on_1, BOMBILLA_UNO)
     Phaser.Display.Align.In.Center(bombilla_on_2, BOMBILLA_DOS)
-    Phaser.Display.Align.In.Center(bombilla_on_3, BOMBILLA_TRES)
+    Phaser.Display.Align.In.Center(bombilla_on_3, BOMBILLA_TRES) */
+
     //tres botones
     Phaser.Display.Align.In.Center(blue_button_off, TOP_BU)
     Phaser.Display.Align.In.Center(blue_button_on, TOP_BU)
@@ -124,18 +137,37 @@ export default class GameScene extends Phaser.Scene {
     green_button_on.visible = false
     red_button_on.visible = false
 
+    map_left.visible = false
+    map_center.visible = false
+    map_right.visible = false
+    
+/*     bombilla_off_1.visible = false
+    bombilla_off_2.visible = false
+    bombilla_off_3.visible = false
+    bombilla_on_1.visible = false
+    bombilla_on_2.visible = false
+    bombilla_on_3.visible = false
+ */
+
+
 
     blue_button_on.on('pointerdown', function () {
-      bombilla_off_1.visible = true
+/*       bombilla_off_1.visible = true */
+      map_left.visible = false
       blue_button_off.visible = true
       blue_button_on.visible = false
 
     })
 
     blue_button_off.on('pointerdown', function () {
-      bombilla_off_1.visible = false
+/*       bombilla_off_1.visible = false
       bombilla_off_2.visible = true
-      bombilla_off_3.visible = true
+      bombilla_off_3.visible = true */
+
+      map_left.visible = true
+      map_center.visible = false
+      map_right.visible = false
+
       blue_button_off.visible = false
       blue_button_on.visible = true
       red_button_off.visible = true
@@ -145,9 +177,14 @@ export default class GameScene extends Phaser.Scene {
     })
 
     green_button_off.on('pointerdown', () => {
-      bombilla_off_2.visible = false //se prende la bombilla y se apagan las otras dos
+/*       bombilla_off_2.visible = false //se prende la bombilla y se apagan las otras dos
       bombilla_off_1.visible = true
-      bombilla_off_3.visible = true
+      bombilla_off_3.visible = true */
+
+      map_left.visible = false
+      map_center.visible = true
+      map_right.visible = false
+
       blue_button_off.visible = true
       blue_button_on.visible = false
       green_button_off.visible = false
@@ -157,15 +194,21 @@ export default class GameScene extends Phaser.Scene {
     })
 
     green_button_on.on('pointerdown', () => {
-      bombilla_off_2.visible = true
+/*       bombilla_off_2.visible = true */
+      map_center.visible = false
       green_button_off.visible = true
       green_button_on.visible = false
     })
 
     red_button_off.on('pointerdown', () => {
-      bombilla_off_3.visible = false
+/*       bombilla_off_3.visible = false
       bombilla_off_1.visible = true
-      bombilla_off_2.visible = true
+      bombilla_off_2.visible = true */
+
+      map_left.visible = false
+      map_center.visible = false
+      map_right.visible = true
+
       blue_button_off.visible = true
       blue_button_on.visible = false
       green_button_off.visible = true
@@ -175,7 +218,8 @@ export default class GameScene extends Phaser.Scene {
     })
 
     red_button_on.on('pointerdown', () => {
-      bombilla_off_3.visible = true
+/*       bombilla_off_3.visible = true */
+      map_right.visible = false
       red_button_off.visible = true
       red_button_on.visible = false
     })
@@ -185,7 +229,6 @@ export default class GameScene extends Phaser.Scene {
   update () {
 /*     this.monster.sprite.anims.play('monster-idle', true) */
     /* this.monster.update() */
-
 
 
   }
