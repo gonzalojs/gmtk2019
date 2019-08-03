@@ -88,6 +88,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('bu_one', 'src/assets/images/panel1.png')
     this.load.image('bu_two', 'src/assets/images/panel2.png')
     this.load.image('bu_three', 'src/assets/images/panel3.png')
+    //ampolletas
+    this.load.image('bombilla_on', 'src/assets/images/bombilla_prendida.png')
+    this.load.image('bombilla_off', 'src/assets/images/bombilla_apagada.png')
 
 
 /*     for (let i = 0; i < 500; i++) {
