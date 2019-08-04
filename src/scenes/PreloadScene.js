@@ -104,6 +104,10 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('map_center', 'src/assets/images/map_center.png')
     this.load.image('map_right', 'src/assets/images/map_rich.png')
 
+    //sobres
+    this.load.image('sobre_cerrado', 'src/assets/images/sobre_cerrado.png')
+    this.load.image('sobre_abierto', 'src/assets/images/sobre_abierto.png')
+
 
 /*     for (let i = 0; i < 500; i++) {
       this.load.image('logos'+i, 'src/assets/spritesheets/big-monster-sprite.png')
